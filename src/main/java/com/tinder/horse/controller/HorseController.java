@@ -1,7 +1,7 @@
 package com.tinder.horse.controller;
 
-import com.example.demo.model.Horse;
-import com.example.demo.repository.HorseRepository;
+import com.tinder.horse.model.Horse;
+import com.tinder.horse.repository.HorseRepository;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
