@@ -1,7 +1,7 @@
 CREATE TABLE matches (
-    user_1_id INT,
-    user_2_id INT,
-    CONSTRAINT CK_DifferentUsers CHECK (user_1_id < user_2_id),
-    CONSTRAINT FK_User1 FOREIGN KEY (user_1_id) REFERENCES users(id),
-    CONSTRAINT FK_User2 FOREIGN KEY (user_2_id) REFERENCES users(id)
+    horse_1_id INT,
+    horse_2_id INT,
+    CONSTRAINT CK_DifferentHorses CHECK (horse_1_id < horse_2_id),
+    CONSTRAINT FK_Horse1 FOREIGN KEY (horse_1_id) REFERENCES horses(id),
+    CONSTRAINT FK_Horse2 FOREIGN KEY (horse_2_id) REFERENCES horses(id)
 );
