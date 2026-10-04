@@ -3,7 +3,7 @@ package com.tinder.horse.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity(name = "horses")
 public class Horse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

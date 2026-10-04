@@ -10,8 +10,8 @@ create table horses (
 	body_length INT NOT NULL DEFAULT 0,
 	city VARCHAR(50),
 	country VARCHAR(50),
-	is_active VARCHAR(50) DEFAULT 0,
-	last_active_at DATE,
-	created_at DATE,
-	updated_at DATE
+	is_active BOOLEAN DEFAULT false,
+	last_active_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

@@ -29,6 +29,7 @@ public class HorseController {
         horse.setId(id);
         return horseRepository.save(horse);
     }
+
     @DeleteMapping("/{id}")
     public void deleteHorse(@PathVariable Long id) {
         horseRepository.deleteById(id);
