@@ -1,4 +1,4 @@
-package com.tinder.S3.config;
+package com.tinder.s3.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;

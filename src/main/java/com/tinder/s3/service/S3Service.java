@@ -1,4 +1,4 @@
-package com.tinder.S3.service;
+package com.tinder.s3.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
