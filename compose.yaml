@@ -10,5 +10,17 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  rustfs:
+    image: 'rustfs/rustfs:latest'
+    environment:
+      - RUSTFS_CONSOLE_ENABLE=true
+      - RUSTFS_ACCESS_KEY=admin  
+      - RUSTFS_SECRET_KEY=password
+    volumes:
+      - './data:/data'
+    ports:
+      - '9000:9000'
+      - '9001:9001'    
+
 volumes:
   pgdata:

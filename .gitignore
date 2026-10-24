@@ -6,6 +6,8 @@ target/
 
 .env
 
+data/
+
 ### STS ###
 .apt_generated
 .classpath
