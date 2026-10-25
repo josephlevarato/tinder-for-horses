@@ -1,4 +1,4 @@
-package com.tinder.horse;
+package com.tinder;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
