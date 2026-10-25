@@ -1,14 +1,14 @@
 package com.tinder.horse.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity(name = "horses")
-@Getter
-@Setter
+@Data 
+@Builder
 public class Horse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

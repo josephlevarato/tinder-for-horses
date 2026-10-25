@@ -1,8 +1,16 @@
 package com.tinder.horse.controller;
 
+import com.tinder.horse.dto.request.ProfileRequest;
 import com.tinder.horse.model.Horse;
 import com.tinder.horse.repository.HorseRepository;
+import com.tinder.validation.groups.OnCreate;
+
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+
 import java.util.*;
 
 @RestController
@@ -19,9 +27,13 @@ public class HorseController {
         return horseRepository.findAll();
     }
 
-    @PostMapping
-    public Horse createHorse(@RequestBody Horse horse) {
-        return horseRepository.save(horse);
+    @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<Horse> createHorse(
+        @Validated(OnCreate.class)
+        @RequestBody ProfileRequest request
+    ) {
+        // return horseRepository.save(horse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
     @PutMapping("/{id}")

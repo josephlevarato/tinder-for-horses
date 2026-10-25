@@ -1,5 +1,7 @@
 package com.tinder.horse.dto.request;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.tinder.validation.groups.OnCreate;
 import com.tinder.validation.groups.OnUpdate;
 
@@ -38,7 +40,8 @@ public class ProfileRequest {
     @NotNull(message = "Gender is required", groups = {OnCreate.class, OnUpdate.class})
     Gender gender;
 
-    // Image
+    @NotNull(message = "An image is required", groups = {OnCreate.class})
+    MultipartFile image;
 
     @NotBlank (message = "Biography cannot be blank", groups = {OnCreate.class, OnUpdate.class})
     @Size(min = 10, max = 500, message = "Biography must be between 10 and 500 characters", groups = {OnCreate.class, OnUpdate.class})
