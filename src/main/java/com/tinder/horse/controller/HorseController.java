@@ -3,6 +3,7 @@ package com.tinder.horse.controller;
 import com.tinder.horse.dto.request.ProfileRequest;
 import com.tinder.horse.model.Horse;
 import com.tinder.horse.repository.HorseRepository;
+import com.tinder.horse.services.ProfileService;
 import com.tinder.validation.groups.OnCreate;
 
 import org.springframework.web.bind.annotation.*;
@@ -11,15 +12,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 
+import java.io.IOException;
 import java.util.*;
 
 @RestController
 @RequestMapping("/api/horses")
 public class HorseController {
     private final HorseRepository horseRepository;
+    private final ProfileService profileService;
 
-    public HorseController(HorseRepository horseRepository) {
+    public HorseController(HorseRepository horseRepository, ProfileService profileService) {
         this.horseRepository = horseRepository;
+        this.profileService = profileService;
     }
 
     @GetMapping
@@ -31,8 +35,8 @@ public class HorseController {
     public ResponseEntity<Horse> createHorse(
         @Validated(OnCreate.class)
         @RequestBody ProfileRequest request
-    ) {
-        // return horseRepository.save(horse);
+    ) throws IOException {
+        this.profileService.createProfile(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
