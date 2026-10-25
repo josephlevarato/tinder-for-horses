@@ -15,19 +15,10 @@ import software.amazon.awssdk.services.s3.S3Client;
 
 @Configuration 
 public class S3Config {
-    
-    @Value("${aws.accessKeyId}")
-    private String awsAccessKeyId;
-
-    @Value("${aws.secretKey}")
-    private String awsSecretKey;
-
-    @Value("${aws.region}")
-    private String awsRegion;
 
     @Bean
     public S3Client s3Client(
-            @Value("${rustfs.endpoint}") String endpoint,
+            @Value("${aws.s3.endpoint}") String endpoint,
             @Value("${aws.accessKeyId}") String accessKey,
             @Value("${aws.secretKey}") String secretKey,
             @Value("${aws.region}") String region
