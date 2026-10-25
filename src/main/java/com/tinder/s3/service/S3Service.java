@@ -1,35 +1,42 @@
 package com.tinder.s3.service;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.UUID;
 
 @Service 
 public class S3Service {
-    private final AmazonS3 amazonS3;
     
-    @Value("${aws.s3.bucket}")
-    private String bucketName;
+    private final S3Client s3Client;
+    private final String bucket;
 
-    public S3Service(AmazonS3 amazonS3) {
-        this.amazonS3 = amazonS3;
+    public S3Service(S3Client s3Client, @Value("${aws.s3.bucket}")  String bucketName) {
+        this.s3Client = s3Client;
+        this.bucket = bucketName;
     }
 
-    public String uploadFile(File file) {
-        try {
-            amazonS3.putObject(new PutObjectRequest(bucketName, file.getName(), file));
-            return "File uploaded successfully: " + file.getName();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Error uploading file";
+    public String uploadFile(MultipartFile file) throws IOException {
+        String key = UUID.randomUUID() + "-" + file.getOriginalFilename();
+
+        PutObjectRequest request = PutObjectRequest.builder()
+            .bucket(bucket)
+            .key(key)
+            .contentType(file.getContentType())
+            .contentLength(file.getSize())
+            .build();
+
+        try (InputStream in = file.getInputStream()) {
+            s3Client.putObject(request, RequestBody.fromInputStream(in, file.getSize()));
         }
-    }
 
-    public S3Object downloadFile(String fileName) {
-        return amazonS3.getObject(bucketName, fileName);
+        return key;
     }
 }
