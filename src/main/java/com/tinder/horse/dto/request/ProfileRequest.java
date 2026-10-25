@@ -1,5 +1,6 @@
 package com.tinder.horse.dto.request;
 
+import com.tinder.horse.enums.Gender;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tinder.validation.groups.OnCreate;
@@ -22,9 +23,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProfileRequest {
 
-    public enum Gender {
-        MALE, FEMALE, OTHER
-    }
 
     @NotBlank(message = "First name cannot be blank", groups = {OnCreate.class, OnUpdate.class})
     @Size(min = 2, max = 50, message = "First name must be between 2 and 50 characters", groups = {OnCreate.class, OnUpdate.class})

@@ -1,15 +1,27 @@
 package com.tinder.horse.model;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+import com.tinder.horse.enums.Gender;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Entity(name = "horses")
 @Data 
 @Builder
+@AllArgsConstructor
 public class Horse {
+
+    public Horse() {}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -17,7 +29,10 @@ public class Horse {
     private String firstName;
     private String lastName;
     private String email;
-    private String gender;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
     private String picture;
     private String biography;
     private int bodyHeight;
