@@ -1,0 +1,51 @@
+info:
+  name: Create
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/api/horses
+  body:
+    type: multipart-form
+    data:
+      - name: firstName
+        type: text
+        value: Joseph
+      - name: lastName
+        type: text
+        value: Levarato
+      - name: gender
+        type: text
+        value: male
+      - name: email
+        type: text
+        value: jhorse@gmail.com
+      - name: picture
+        type: file
+        value:
+          - /home/joseph/Images/Captures d’écran/Capture d’écran du 2026-05-30 11-24-23.png
+        contentType: image/png
+      - name: biography
+        type: text
+        value: sdlfjs kljsdf lksdjf lksdjf lsdkf jsdlkf jsdlfk jdslf kjdfl kjs flksdjfldskf jsdlkf jsdlkf jdslkf jdslkf jdslk fsj
+      - name: bodyHeight
+        type: text
+        value: "130"
+      - name: bodyLength
+        type: text
+        value: "150"
+      - name: city
+        type: text
+        value: Lyon
+      - name: country
+        type: text
+        value: France
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
