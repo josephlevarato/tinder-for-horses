@@ -1,8 +1,8 @@
 package com.tinder.horse.dto.request;
 
-import com.tinder.horse.enums.Gender;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tinder.horse.enums.Gender;
 import com.tinder.validation.groups.OnCreate;
 import com.tinder.validation.groups.OnUpdate;
 
@@ -13,7 +13,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Data
@@ -39,7 +43,7 @@ public class ProfileRequest {
     Gender gender;
 
     @NotNull(message = "An image is required", groups = {OnCreate.class})
-    MultipartFile image;
+    MultipartFile picture;
 
     @NotBlank (message = "Biography cannot be blank", groups = {OnCreate.class, OnUpdate.class})
     @Size(min = 10, max = 500, message = "Biography must be between 10 and 500 characters", groups = {OnCreate.class, OnUpdate.class})

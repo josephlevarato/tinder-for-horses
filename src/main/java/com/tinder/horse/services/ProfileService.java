@@ -22,7 +22,7 @@ public class ProfileService {
     @Transactional
     public void createProfile(ProfileRequest request) throws IOException {
 
-        String imgPath = this.s3Service.uploadFile(request.getImage());
+        String imgPath = this.s3Service.uploadFile(request.getPicture());
 
         Horse.builder()
             .firstName(request.getFirstName())

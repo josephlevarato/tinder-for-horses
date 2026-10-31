@@ -1,20 +1,27 @@
 package com.tinder.horse.controller;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.tinder.horse.dto.request.ProfileRequest;
 import com.tinder.horse.model.Horse;
 import com.tinder.horse.repository.HorseRepository;
 import com.tinder.horse.services.ProfileService;
 import com.tinder.validation.groups.OnCreate;
-
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-
-import java.io.IOException;
-import java.util.*;
 
 @RestController
 @RequestMapping("/api/horses")
@@ -32,24 +39,13 @@ public class HorseController {
         return horseRepository.findAll();
     }
 
-    /*
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<Horse> createHorse(
         @Validated(OnCreate.class)
-        @RequestPart ProfileRequest request
+        @ModelAttribute ProfileRequest request
     ) throws IOException {
         this.profileService.createProfile(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
-    }
-    */
-
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Horse> createHorse(
-        @Validated(OnCreate.class) @RequestPart("picture") ProfileRequest request,
-        @RequestPart(value = "image", required = false) MultipartFile image
-    ) throws IOException {
-        this.profileService.createProfile(request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")

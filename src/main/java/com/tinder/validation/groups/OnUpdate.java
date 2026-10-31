@@ -1,5 +1,5 @@
 package com.tinder.validation.groups;
 
-public class OnUpdate {
-    
+public interface OnUpdate {
+
 }
