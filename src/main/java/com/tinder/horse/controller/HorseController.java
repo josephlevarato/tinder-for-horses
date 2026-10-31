@@ -7,6 +7,7 @@ import com.tinder.horse.services.ProfileService;
 import com.tinder.validation.groups.OnCreate;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +32,24 @@ public class HorseController {
         return horseRepository.findAll();
     }
 
+    /*
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<Horse> createHorse(
         @Validated(OnCreate.class)
-        @RequestBody ProfileRequest request
+        @RequestPart ProfileRequest request
     ) throws IOException {
         this.profileService.createProfile(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
+    }
+    */
+
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Horse> createHorse(
+        @Validated(OnCreate.class) @RequestPart("picture") ProfileRequest request,
+        @RequestPart(value = "image", required = false) MultipartFile image
+    ) throws IOException {
+        this.profileService.createProfile(request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
