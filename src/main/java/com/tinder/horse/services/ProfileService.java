@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.tinder.horse.dto.request.ProfileRequest;
 import com.tinder.horse.model.Horse;
+import com.tinder.horse.repository.HorseRepository;
 import com.tinder.s3.service.S3Service;
 
 import jakarta.transaction.Transactional;
@@ -14,9 +15,11 @@ import jakarta.transaction.Transactional;
 public class ProfileService {
 
     private final S3Service s3Service;
+    private final HorseRepository horseRepository;
 
-    public ProfileService(S3Service s3Service) {
+    public ProfileService(S3Service s3Service, HorseRepository horseRepository) {
         this.s3Service = s3Service;
+        this.horseRepository = horseRepository;
     }
 
     @Transactional
@@ -24,17 +27,20 @@ public class ProfileService {
 
         String imgPath = this.s3Service.uploadFile(request.getPicture());
 
-        Horse.builder()
+        Horse horse = Horse.builder()
             .firstName(request.getFirstName())
             .lastName(request.getLastName())
             .email(request.getEmail())
             .gender(request.getGender())
             .picture(imgPath)
+            .birthday(request.getBirthday())
             .biography(request.getBiography())
             .bodyHeight(request.getBodyHeight())
             .bodyLength(request.getBodyLength())
             .city(request.getCity())
             .country(request.getCountry())
             .build();
+
+        this.horseRepository.save(horse);
     }
 }

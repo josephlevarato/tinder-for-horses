@@ -37,6 +37,7 @@ public class Horse {
     private String biography;
     private int bodyHeight;
     private int bodyLength;
+    private LocalDate birthday;
     private String city;
     private String country;
     private boolean isActive;

@@ -1,10 +1,13 @@
 package com.tinder.horse.dto.request;
 
+import java.time.LocalDate;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tinder.horse.enums.Gender;
 import com.tinder.validation.groups.OnCreate;
 import com.tinder.validation.groups.OnUpdate;
+import com.tinder.horse.validations.IsMajor;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -44,6 +47,10 @@ public class ProfileRequest {
 
     @NotNull(message = "An image is required", groups = {OnCreate.class})
     MultipartFile picture;
+
+    @NotNull(message =  "A birthday is required")
+    @IsMajor(message = "You need to be major to register")
+    LocalDate birthday;
 
     @NotBlank (message = "Biography cannot be blank", groups = {OnCreate.class, OnUpdate.class})
     @Size(min = 10, max = 500, message = "Biography must be between 10 and 500 characters", groups = {OnCreate.class, OnUpdate.class})

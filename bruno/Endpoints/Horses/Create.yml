@@ -41,6 +41,9 @@ http:
       - name: country
         type: text
         value: France
+      - name: birthday
+        type: text
+        value: 1990-01-01
   auth: inherit
 
 settings:
