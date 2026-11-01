@@ -16,10 +16,16 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 public class S3Service {
 
     private final S3Client s3Client;
+    private final String endpoint;
     private final String bucket;
 
-    public S3Service(S3Client s3Client, @Value("${aws.s3.bucket}")  String bucketName) {
+    public S3Service(
+        S3Client s3Client,
+        @Value("${aws.s3.endpoint}") String endpoint,
+        @Value("${aws.s3.bucket}")  String bucketName
+    ) {
         this.s3Client = s3Client;
+        this.endpoint = endpoint;
         this.bucket = bucketName;
     }
 
@@ -37,6 +43,8 @@ public class S3Service {
             s3Client.putObject(request, RequestBody.fromInputStream(in, file.getSize()));
         }
 
-        return key;
+        String[] items = { this.endpoint, this.bucket, key };
+
+        return String.join("/", items);
     }
 }
