@@ -5,9 +5,9 @@ import java.time.LocalDate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tinder.horse.enums.Gender;
+import com.tinder.horse.validations.IsMajor;
 import com.tinder.validation.groups.OnCreate;
 import com.tinder.validation.groups.OnUpdate;
-import com.tinder.horse.validations.IsMajor;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -21,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 @Data
@@ -29,7 +30,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProfileRequest {
-
 
     @NotBlank(message = "First name cannot be blank", groups = {OnCreate.class, OnUpdate.class})
     @Size(min = 2, max = 50, message = "First name must be between 2 and 50 characters", groups = {OnCreate.class, OnUpdate.class})
@@ -41,6 +41,11 @@ public class ProfileRequest {
 
     @Email(message = "Invalid email format", groups = {OnCreate.class, OnUpdate.class})
     String email;
+
+    @NotBlank(message = "A password is required", groups = {OnCreate.class})
+    @Size(min = 8)
+    @ToString.Exclude
+    String password;
 
     @NotNull(message = "Gender is required", groups = {OnCreate.class, OnUpdate.class})
     Gender gender;

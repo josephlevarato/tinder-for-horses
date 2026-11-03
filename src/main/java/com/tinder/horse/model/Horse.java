@@ -38,6 +38,7 @@ public class Horse {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;

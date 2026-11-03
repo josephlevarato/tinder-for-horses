@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Service;
 
+import com.tinder.horse.config.PasswordEncoder;
 import com.tinder.horse.dto.request.ProfileRequest;
 import com.tinder.horse.model.Horse;
 import com.tinder.horse.repository.HorseRepository;
@@ -16,10 +17,12 @@ public class ProfileService {
 
     private final S3Service s3Service;
     private final HorseRepository horseRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public ProfileService(S3Service s3Service, HorseRepository horseRepository) {
+    public ProfileService(S3Service s3Service, HorseRepository horseRepository, PasswordEncoder encoder) {
         this.s3Service = s3Service;
         this.horseRepository = horseRepository;
+        this.passwordEncoder = encoder;
     }
 
     @Transactional
@@ -31,6 +34,7 @@ public class ProfileService {
             .firstName(request.getFirstName())
             .lastName(request.getLastName())
             .email(request.getEmail())
+            .password(this.passwordEncoder.encode(request.getPassword()))
             .gender(request.getGender())
             .picture(imgPath)
             .birthday(request.getBirthday())

@@ -1,7 +1,12 @@
 package com.tinder.horse.repository;
 
-import com.tinder.horse.model.Horse;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface HorseRepository extends JpaRepository<Horse, Long> {}
+import com.tinder.horse.model.Horse;
+
+public interface HorseRepository extends JpaRepository<Horse, Long> {
+    Optional<Horse> findByEmail(String email);
+}
 

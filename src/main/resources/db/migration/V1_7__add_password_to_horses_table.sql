@@ -1,0 +1,3 @@
+ALTER TABLE horses
+ADD UNIQUE (email),
+ADD password VARCHAR(255) NOT NULL;

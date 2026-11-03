@@ -22,7 +22,7 @@ public class S3Service {
     public S3Service(
         S3Client s3Client,
         @Value("${aws.s3.endpoint}") String endpoint,
-        @Value("${aws.s3.bucket}")  String bucketName
+        @Value("${aws.s3.bucket}") String bucketName
     ) {
         this.s3Client = s3Client;
         this.endpoint = endpoint;
