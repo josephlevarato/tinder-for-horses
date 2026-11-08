@@ -2,9 +2,9 @@ package com.tinder.horse.services;
 
 import java.io.IOException;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.tinder.horse.config.PasswordEncoder;
 import com.tinder.horse.dto.request.ProfileRequest;
 import com.tinder.horse.model.Horse;
 import com.tinder.horse.repository.HorseRepository;
@@ -19,10 +19,10 @@ public class ProfileService {
     private final HorseRepository horseRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public ProfileService(S3Service s3Service, HorseRepository horseRepository, PasswordEncoder encoder) {
+    public ProfileService(S3Service s3Service, HorseRepository horseRepository, PasswordEncoder passwordEncoder) {
         this.s3Service = s3Service;
         this.horseRepository = horseRepository;
-        this.passwordEncoder = encoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
