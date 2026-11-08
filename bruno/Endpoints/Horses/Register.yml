@@ -1,11 +1,11 @@
 info:
-  name: Create
+  name: Register
   type: http
   seq: 1
 
 http:
   method: POST
-  url: http://localhost:8080/api/horses
+  url: http://localhost:8080/api/auth/register
   body:
     type: multipart-form
     data:
@@ -24,7 +24,7 @@ http:
       - name: picture
         type: file
         value:
-          - /home/joseph/Images/Captures d’écran/Capture d’écran du 2026-05-30 11-24-23.png
+          - /home/joseph/Images/Captures d’écran/Capture d’écran du 2026-05-31 15-47-29.png
         contentType: image/png
       - name: biography
         type: text
@@ -44,6 +44,9 @@ http:
       - name: birthday
         type: text
         value: 1990-01-01
+      - name: password
+        type: text
+        value: password
   auth: inherit
 
 settings:
