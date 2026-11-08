@@ -1,0 +1,6 @@
+name: Dev
+variables:
+  - name: endpoint
+    value: http://localhost:8080/api
+  - secret: true
+    name: bearer
