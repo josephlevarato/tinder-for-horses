@@ -1,11 +1,13 @@
 package com.tinder.horse.controller;
 
 import java.io.IOException;
+import java.net.http.HttpHeaders;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +30,8 @@ import com.tinder.horse.dto.request.ProfileRequest;
 import com.tinder.horse.model.Horse;
 import com.tinder.horse.services.ProfileService;
 import com.tinder.validation.groups.OnCreate;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 record LoginRequest(String email, String password) {}
 record TokenResponse(String token) {}
@@ -61,7 +65,7 @@ public class AuthController {
     }
 
     @PostMapping(path = "/login")
-    public TokenResponse login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest request, HttpServletResponse response) {
         Authentication auth;
 
         try {
@@ -85,6 +89,15 @@ public class AuthController {
         JwsHeader header = JwsHeader.with(MacAlgorithm.HS256).build();
         String token = jwtEncoder.encode(JwtEncoderParameters.from(header, claims)).getTokenValue();
 
-        return new TokenResponse(token);
+        ResponseCookie cookie = ResponseCookie.from("JWT_TOKEN", token)
+            .httpOnly(true)
+            .path("/")
+            .sameSite("lax")
+            .maxAge(3600)
+            .build();
+
+        response.addHeader("Set-Cookie", cookie.toString());
+
+        return ResponseEntity.ok(null);
     }
 }
