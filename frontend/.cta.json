@@ -1,10 +1,10 @@
 {
   "bundler": "vite",
-  "projectName": "frontend",
+  "projectName": "tanstart",
   "mode": "file-router",
   "typescript": true,
   "packageManager": "npm",
-  "includeExamples": true,
+  "includeExamples": false,
   "tailwind": true,
   "projectPreset": "default",
   "routerOnly": false,
@@ -17,8 +17,8 @@
   "chosenAddOns": [
     "biome",
     "form",
+    "shadcn",
     "store",
-    "tanstack-query",
-    "shadcn"
+    "tanstack-query"
   ]
 }
