@@ -1,7 +1,6 @@
 package com.tinder.horse.controller;
 
 import java.io.IOException;
-import java.net.http.HttpHeaders;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 

@@ -23,10 +23,14 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
+import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import com.tinder.horse.repository.HorseRepository;
+
+import jakarta.servlet.http.Cookie;
 
 @Configuration 
 @EnableWebSecurity
@@ -72,7 +76,7 @@ public class SecurityConfig {
     }
 
     @Bean 
-    SecurityFilterChain filterChain(HttpSecurity http) {
+    SecurityFilterChain filterChain(HttpSecurity http, BearerTokenResolver resolver) {
         return http
             .csrf(csrf -> csrf.disable())
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -80,8 +84,32 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated()
             )
-            .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
+            .oauth2ResourceServer(oauth -> oauth
+                .bearerTokenResolver(resolver)
+                .jwt(Customizer.withDefaults())
+            )
             .build();
     }
-    
+
+    @Bean
+    BearerTokenResolver bearerTokenResolver() {
+        DefaultBearerTokenResolver headerResolver = new DefaultBearerTokenResolver();
+
+        return request -> {
+            if (request.getServletPath().startsWith("/api/auth")) {
+                return null;
+            }
+
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("JWT_TOKEN")) {
+                        return cookie.getValue();
+                    }
+                }
+            }
+
+            return headerResolver.resolve(request);
+        };
+    }
 }
