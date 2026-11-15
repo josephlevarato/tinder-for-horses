@@ -4,6 +4,7 @@ import { useForm } from '@tanstack/react-form'
 import { toast } from '@yusufceng1z/ding-react'
 import { Link } from '@tanstack/react-router'
 import useHorseStore from '#/stores/auth'
+import { z } from 'zod'
 
 import {
     Card,
@@ -16,7 +17,6 @@ import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
 import {
     Field,
-    FieldError,
     FieldGroup,
     FieldLabel,
     FieldDescription
@@ -24,6 +24,11 @@ import {
 
 export const Route = createFileRoute('/login')({
     component: RouteComponent,
+})
+
+const ZodSchema = z.object({
+    email: z.string(),
+    password: z.string(),
 })
 
 function RouteComponent() {
@@ -53,6 +58,9 @@ function RouteComponent() {
         defaultValues: {
             email: '',
             password: '',
+        },
+        validators: {
+            onChange: ZodSchema,
         },
         onSubmit: async ({ value }) => {
             try {
@@ -93,14 +101,6 @@ function RouteComponent() {
                         <FieldGroup>
                             <form.Field
                                 name="email"
-                                validators={{
-                                onChange: ({ value }) =>
-                                    !value
-                                    ? 'Field is required'
-                                    : value.length < 3
-                                        ? 'Email must be at least 3 characters'
-                                        : undefined,
-                                }}
                                 children={(field) => {
                                     return (
                                         <Field>
@@ -116,11 +116,6 @@ function RouteComponent() {
                                                 type="email"
                                                 onChange={(e) => field.handleChange(e.target.value)}
                                             />
-                                            {field.state.meta.isTouched && (
-                                                <FieldError
-                                                    errors={field.state.meta.errors.map((message) => ({ message }))}
-                                                />
-                                            )}
                                         </Field>
                                     )
                                 }}
