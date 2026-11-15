@@ -14,7 +14,12 @@ http:
 runtime:
   scripts:
     - type: after-response
-      code: bru.setEnvVar("bearer", res.body.token);
+      code: |-
+        const cookies = res.getHeader('set-cookie')
+        const rawToken = cookies.toString().split('; ')[0]
+        const tokenValue = rawToken.split('=')[1]
+
+        bru.setEnvVar('bearer', tokenValue)
 
 settings:
   encodeUrl: true
