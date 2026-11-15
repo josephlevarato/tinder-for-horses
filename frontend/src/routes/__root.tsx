@@ -9,8 +9,6 @@ import { Toaster } from '@yusufceng1z/ding-react'
 
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 
-import Header from '#/components/Header'
-
 import appCss from '../styles.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
@@ -50,9 +48,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <Header />
-        <Toaster position='top-center' />
-        {children}
+        {/* <Header /> */}
+        <Toaster position="top-center" />
+        <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+            <div className="w-full max-w-sm">
+                {children}
+            </div>
+        </div>
         <TanStackDevtools
           config={{
             position: 'bottom-right',
