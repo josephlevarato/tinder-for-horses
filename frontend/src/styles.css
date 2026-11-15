@@ -6,7 +6,97 @@
 @import 'tw-animate-css';
 
 :root {
+  /* Surfaces */
+  --background: #fbf6ef;
+  --foreground: #2a1f1a;
+  --card: #ffffff;
+  --card-foreground: #2a1f1a;
+  --popover: #ffffff;
+  --popover-foreground: #2a1f1a;
+ 
+  /* Brand */
+  --primary: #b5502b;
+  --primary-foreground: #ffffff;
+  --secondary: #eadfcf;
+  --secondary-foreground: #2a1f1a;
+  --accent: #2f5d50;
+  --accent-foreground: #ffffff;
+ 
+  /* Supporting */
+  --muted: #eadfcf;
+  --muted-foreground: #6b5b52;
+  --destructive: #b3261e;
+  --destructive-foreground: #ffffff;
+ 
+  /* Lines and focus */
+  --border: #d9c9b6;
+  --input: #8a7a70;
+  --ring: #b5502b;
+ 
+  /* Shape and type */
+  --radius: 0.75rem;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+ 
+  /* Charts (kept for shadcn compatibility) */
+  --chart-1: #b5502b;
+  --chart-2: #2f5d50;
+  --chart-3: #c9973f;
+  --chart-4: #6b5b52;
+  --chart-5: #8a7a70;
+}
 
+
+/* Expose the variables as Tailwind utilities: bg-background, text-primary, rounded-lg, font-display... */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+ 
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+ 
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+}
+ 
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+ 
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+ 
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
 }
 
 html,
